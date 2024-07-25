@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+body {
+    background-color: blanchedalmond;
+}
+.btn-floating {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    color: rgb(123, 241, 123);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.4s;
+  }
+
+.pizza {
+    border: 3px solid blueviolet;
+    margin: 1em;
+    padding: 3em;
+    border-radius: 0.5em;
+}
+
+.flexBuyBtns {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 20px 0;
+}
+
+.buyBtn {
+    border: 1px solid black;
+    padding: 6px 120px;
+    border-radius: 0.3em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+
+}
+
+.pizzaItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em;
+    border: 1px solid black;
+    border-radius: 0.3em;
+    width: 80%;
+    padding: 1em;
+}
+
+.centeredPizza:nth-child(even) .pizzaItem {
+    background-color: rgb(10, 77, 154);
+
+}
+
+.centeredPizza:nth-child(odd) .pizzaItem {
+    background-color: turquoise;
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 1.1);
+    
+}
+
+.centeredPizza {
+    display: flex;
+    justify-content: center;
+}
+
+#item-1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#item-1 img {
+    width: 50px;
+}
+
+#item-2 {
+    flex: 1;
+}
+
+#item-3 {
+    flex: 1;
+}
+
+#item-4 {
+    flex: 1;
+}
+
+#item-5 {
+    flex: 1;
+}
+
+#item-4 button,
+#item-5 button {
+    width: 150px;
+    height: 40px;
+    border-radius: 0.9em;
+    border: 1px solid black;
+    font-size: 16px;
+}
+
+table input {
+    width: 80px;
+    border: 1px solid black;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 12px;
+    border-collapse: collapse;
+}
+
+.centeredCart {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    font-size: 18px;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+.cart h2 {
+    margin-top: 8px;
+}
+
+.centeredCart {
+    margin-bottom: 20px;
+}
+
+#quantity {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.errorStyle {
+    color: #e71d36;
+}
+
+.successStyle {
+    color: #3e8914;
+}
+
+table button {
+    border: 1px solid black;
+}
+
+table input:focus {
+    outline: none;
+}
+
+#featuredHeading {
+    margin: 1em;
+    text-align: center;
+}
+
+#payBtn {
+    font-size: 16px;
+    padding: 4px;
+    width: 60px;
+}
+
+#payInput {
+    font-size: 16px;
+    padding: 4px;
+    width: 40px;
+}
+
+h1 {
+    margin-left: 15px;
+
+}
+
+.flexInput {
+    display: flex;
+    justify-content: center;
+    border: none;
+}
+
+button:hover {
+    background-color: #90e0ef;
+}
+
+button:active {
+    transform: translateY(2px)
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+}
+
+#removeBtn {
+    width: 21px;
+}
+
+.flexHeading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flexHeading h3 {
+    font-family: 'Roboto', sans-serif;
+    margin-right: 14px;
+    padding-top: 14px;
+}
+
+.flexHeading h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.centeredHistorical {
+    display: flex;
+    justify-content: center;
+}
+
+.historicalTable {
+    margin-bottom: 10px;
+}
+
+.historicalTable table {
+    min-width: 600px;
+}
+
+@media (min-width: 960px) {
+    .pizzas {
+        display: flex;
+    }
+
+    .small_pizza,
+    .medium_pizza,
+    .large_pizza {
+        flex: 1;
+    }
+}
+
+@media (max-width: 720px) {
+    .pizzaItem {
+        display: block;
+        width: 800%;
+    }
+
+    .pizzaItem {
+        text-align: center;
+    }
+
+    #item-4 {
+        margin-bottom: 5px;
+    }
+
+    #item-4 button {
+        width: 80%;
+    }
+
+    #item-5 button {
+        width: 80%;
+    }
+
+    .flexBuyBtns button {
+        width: 70%;
+    }
+
+    .flexHeading {
+        display: block;
+    }
+
+    .flexHeading h3 {
+        margin-left: 20px;
+        margin-bottom: 0;
+    }
+}
+table {
+    width: 150%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 1em;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 1.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid turquoise;
+  }
+  
+  thead th {
+    background-color: turquoise;
+  }
+  tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  tfoot td {
+    font-weight: bold;
+    
+  }
+.pizzas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    background-color: blanchedalmond;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.pizzas > div {
+    background-color: lightpink;
+    border: 2px solid purple;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    width: 370px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pizzas h3 {
+    color: rgb(243, 12, 181);
+    font-size: 1.2em;
+    margin: 0 0 15px 0;
+}
+
+
+.buyBtn {
+    background-color: rgb(243, 12, 181);
+    color: white;
+    border: none;
+    border-radius: 5px; 
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buyBtn:hover {
+    background-color: #0333f3;
+}
+/* Add this to your existing style.css or create a new style.css file */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.historicalTable {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+    .login {
+        padding: 2em;
+    }
+
+    table, th, td {
+        font-size: 0.9em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    .centeredHistorical {
+        padding: 0 1em;
+    }
+}

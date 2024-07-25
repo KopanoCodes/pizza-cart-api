@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pizza</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="pizza.js"></script>
+</head>
+
+<body x-data="pizzaShop()" x-init="init()">
+    <div class="login" style="background-color: rgb(243, 12, 181); padding: 4em;">
+        <div>
+            Username: <input type="text" placeholder="Type username here..." x-model="username">
+            <button x-on:click="login" x-show="!isLoggedIn">Login</button>
+            <button x-on:click="logout" x-show="isLoggedIn">Logout</button>
+        </div>
+        <div x-show="isLoggedIn && cartId">
+            <span>Cart Code: </span> <span x-text="cartId"></span>
+            
+        </div>
+    </div>
+
+    <div class="flexHeading" x-show="isLoggedIn">
+        <h1>Perfect Pizza</h1>
+        <h3 @click="toggleHistoricalOrders" x-text="showHistoricalOrders ? 'Hide Historical Orders' : 'View Historical Orders'"></h3>
+    </div>
+
+    <div class="centeredHistorical" x-show="isLoggedIn && showHistoricalOrders">
+        <h2>Historical Orders</h2>
+        <template x-for="order in historicalOrdersList" :key="order.cart_code">
+            <div class="historicalTable">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3" style="text-align: left;">Cart ID</th>
+                            <td colspan="2" style="text-align: center;" x-text="order.cart_code"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">Status</td>
+                            <td colspan="2" style="text-align: center;">Paid</td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left;">Flavour</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                        <template x-for="pizza in order.pizzas" :key="pizza.id">
+                            <tr>
+                                <td x-text="pizza.flavour"></td>
+                                <td x-text="pizza.size"></td>
+                                <td>R <span x-text="pizza.price"></span></td>
+                                <td x-text="pizza.qty" style="text-align: center;"></td>
+                                <td>R <span x-text="pizza.price * pizza.qty"></span></td>
+                            </tr>
+                        </template>
+                        <tr>
+                            <td colspan="3">Total</td>
+                            <td colspan="2" style="text-align: center;">R <span x-text="order.total.toFixed(2)"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+    </div>
+
+    <div class="centeredCart" x-show="isLoggedIn && cartTotal > 0">
+        <div class="cart">
+            <p x-text="message" :class="msgStyle ? 'errorStyle' : 'successStyle'"></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flavour</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="pizza in cartPizzas" :key="pizza.id">
+                        <tr>
+                            <td x-text="pizza.flavour"></td>
+                            <td x-text="pizza.size"></td>
+                            <td>R <span x-text="pizza.price"></span></td>
+                            <td>
+                                <button @click="removePizzaFromCart(pizza.id)" id="removeBtn">-</button>
+                                <span x-text="pizza.qty" id="quantity"></span>
+                                <button @click="addPizzaToCart(pizza.id)">+</button>
+                            </td>
+                            <td>R <span x-text="(pizza.price * pizza.qty).toFixed(2)"></span></td>
+                        </tr>
+                    </template>
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td colspan="2" style="text-align:right;">R <span x-text="cartTotal.toFixed(2)"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Pay now</td>
+                        <td class="flexInput"><input type="number" x-model.number="paymentAmount" id="payInput"></td>
+                        <td><button @click="payForCart" id="payBtn">Pay</button></td>
+                    </tr>
+                    <tr x-show="change > 0">
+                        <td colspan="5" style="text-align:center; color: green;">Change: R <span x-text="change.toFixed(2)"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Featured Pizzas -->
+    <h2 id="featuredHeading" x-show="isLoggedIn">Featured Pizzas</h2>
+
+    <div class="pizzas" x-show="isLoggedIn">
+        <template x-for="(pizza, index) in featuredPizzas" :key="pizza.id">
+            <div :class="getSizeClass(index)">
+                <h2 x-text="pizza.flavour"></h2>
+                <img src="pizza.jpeg" alt="Pizza Image" :width="125">
+                <h3>R <span x-text="pizza.price"></span></h3>
+                <div class="flexBuyBtns">
+                    <button class="buyBtn" @click="addPizzaToCart(pizza.id)">Add To Cart</button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <template x-for="pizza in pizzas" :key="pizza.id">
+        <div class="centeredPizza" x-show="isLoggedIn">
+            <div class="pizzaItem">
+                <div id="item-1">
+                    <img src="pizza.jpeg" alt="Pizza" >
+                </div>
+                <div id="item-2">
+                    <p x-text="pizza.flavour"></p>
+                    <p x-text="pizza.size"></p>
+                </div>
+                <div id="item-3">
+                    <p>R <span x-text="pizza.price"></span></p>
+                </div>
+                <div id="item-4">
+                    <button @click="addPizzaToCart(pizza.id)">Buy</button>
+                </div>
+                <a href="#" id="favorite-btn-large" class="btn-floating halfway-fab waves-effect waves-light red">
+                    <i class="material-icons">favorite_border</i>
+                </a>
+            </div>
+        </div>
+    </template>
+
+    
+</body>
+
+</html>
